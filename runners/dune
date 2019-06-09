@@ -1,0 +1,6 @@
+(executables
+(names example)
+(public_names example)
+(modules example)
+(libraries z3)
+)
