@@ -315,7 +315,6 @@ let fpa_example ( ctx : context ) =
 	  Printf.printf "Test passed.\n"
   ) 
 
-    
 let () = 
   try (
     if not (Log.open_ "z3.log") then
