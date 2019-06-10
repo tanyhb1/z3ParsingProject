@@ -1,7 +1,7 @@
 (executables
-(names example1 example2 example3)
-(public_names example1 example2 example3)
-(modules example1 example2 example3)
+(names example1 example2 demorgans)
+(public_names example1 example2 demorgans)
+(modules example1 example2 demorgans)
 (libraries z3ml)
 (link_flags -cc g++)
 )
