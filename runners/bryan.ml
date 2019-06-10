@@ -49,6 +49,17 @@ let demorgan_test (ctx : context) =
 
 (* 2. uninterpreted functions and constants, 
    i.e. sorts.
+
+(declare-sort A)
+(declare-const x A)
+(declare-const y A)
+(declare-fun f (A) A)
+(assert (= (f (f x)) x))
+(assert (= (f x) y))
+(assert (not (= x y)))
+(check-sat)
+(get-model)
+
 *)
 
 let sort_test (ctx: context) =
@@ -83,7 +94,40 @@ let sort_test (ctx: context) =
 
 (* 3. universal quantification
 
+(declare-const a Int)
+(declare-const b Int)
+(assert (forall ((t Int)) (=> (<= t a) (< t b))))
+(check-sat-using (then qe smt))
+(get-model)
+
 *)
+
+let uquant_test (ctx : context) =
+  Printf.printf "Universal quantification test \n";
+  let a = (Integer.mk_const_s ctx "a") in
+  let b = (Integer.mk_const_s ctx "b") in
+  let x = (Integer.mk_const_s ctx "x") in
+  let eq1 = (Arithmetic.mk_lt ctx x b) in
+  let eq2 = (Arithmetic.mk_le ctx x a) in
+  let eq3 = (Boolean.mk_and ctx [eq1; eq2]) in
+  let q = (Quantifier.mk_forall ctx [Integer.mk_sort ctx] [Symbol.mk_string ctx "x"]  (eq3) (Some 1) [] [] (Some (Symbol.mk_string ctx "Q1")) (Some (Symbol.mk_string ctx "skid1"))) in
+  Printf.printf "%s \n" ("Goal: " ^ (Quantifier.to_string q));
+  let solver = (mk_solver ctx None) in
+  let expr_of_q = Quantifier.expr_of_quantifier q in
+  Solver.add solver [expr_of_q];
+  match Solver.check solver [] with
+  | UNSATISFIABLE -> Printf.printf "UNSATISFIABLE\n"
+  | UNKNOWN -> Printf.printf "UNKNOWN\n"
+  | SATISFIABLE ->
+      match Solver.get_model solver with
+      | None -> ()
+      | Some model ->
+          Printf.printf "%s\n" (Model.to_string model)
+  
+  
+
+(* running the functions *)
+            
 let () =
   try (
     if not (Log.open_ "z3.log") then
@@ -95,6 +139,8 @@ let () =
         demorgan_test ctx;
         Printf.printf "\n";
         sort_test ctx;
+        Printf.printf "\n";
+        uquant_test ctx;
         (* perform garbage collection *)
        	Printf.printf "Disposing...\n";
 	Gc.full_major ()
