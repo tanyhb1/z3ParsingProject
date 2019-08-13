@@ -1,0 +1,4 @@
+import TestLibDiamondLeft as LeftFoo
+       TestLibDiamondRight as RightFoo
+
+library TestLibDiamondTop

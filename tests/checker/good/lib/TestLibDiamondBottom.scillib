@@ -1,0 +1,4 @@
+library TestLibDiamondBottom
+
+let bot_int = Uint32 1
+

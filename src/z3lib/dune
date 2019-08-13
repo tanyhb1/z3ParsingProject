@@ -1,0 +1,7 @@
+(library
+(name z3_lib)
+(public_name z3-lib)
+(wrapped false)
+(libraries z3 scilla_base scilla_cpp_deps scilla_util scilla_eval)
+(preprocess (pps ppx_sexp_conv ppx_let ppx_deriving.show ))
+)	

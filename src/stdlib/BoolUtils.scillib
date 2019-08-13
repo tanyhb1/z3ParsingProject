@@ -1,0 +1,30 @@
+library BoolUtils
+
+let andb : Bool -> Bool -> Bool = 
+  fun (b : Bool) =>
+  fun (c : Bool) =>
+    match b with 
+    | False => False
+    | True  => c
+    end
+
+let orb : Bool -> Bool -> Bool = 
+  fun (b : Bool) => fun (c : Bool) =>
+    match b with 
+    | True  => True
+    | False => c
+    end
+
+let negb : Bool -> Bool = 
+  fun (b : Bool) => 
+    match b with
+    | True => False
+    | False => True
+    end
+
+let bool_to_string : Bool -> String = 
+  fun (flag: Bool) =>
+    match flag with
+    | True => "True"
+    | False => "False"
+    end

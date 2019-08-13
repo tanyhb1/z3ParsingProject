@@ -1,2 +1,2 @@
-(lang dune 1.1)
-(name z3ml)
+(lang dune 1.0)
+(using menhir 1.0)

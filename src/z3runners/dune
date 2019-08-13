@@ -1,0 +1,12 @@
+(executables
+ (names z3_scilexp_parser)
+  (public_names z3_scilexp_parser)
+  (package scilla)
+  (modules z3_scilexp_parser RunnerUtil cli)
+  (libraries z3 z3_lib
+  	     core angstrom
+              ppx_sexp_conv ppx_deriving
+              ppx_let yojson cryptokit
+              fileutils)
+  (link_flags -cc g++)
+  (preprocess (pps ppx_sexp_conv ppx_let ppx_deriving.show )))
