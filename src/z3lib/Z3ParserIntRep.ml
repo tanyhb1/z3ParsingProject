@@ -273,9 +273,9 @@ let rec z3unwrap (stmt_list : z3Statements list) (ctx : context) =
                let vset = ref @@ Z3.Set.mk_empty ctx !v_sort_ref in
                (match kv_lst with
                 | KV lst ->
-                    let arr = List.to_array lst in
-                    let len = Array.length arr in
-                    let k_stor = ref [] in
+                  let arr = List.to_array lst in
+                  let len = Array.length arr in
+                  let k_stor = ref [] in
                     let v_stor = ref [] in
                     for i = 0 to len - 1 do
                       let item = arr.(i) in
@@ -288,7 +288,7 @@ let rec z3unwrap (stmt_list : z3Statements list) (ctx : context) =
                       k_stor := !kset :: !k_stor;
                       v_stor := !vset :: !v_stor;
                     done;
-                    !k_stor @ !v_stor @ z3unwrap t ctx         
+                     z3unwrap t ctx         
                 | _ -> raise (Failure "malformed pair")
                )            
            | _ -> raise (Failure "malformed pair")         
